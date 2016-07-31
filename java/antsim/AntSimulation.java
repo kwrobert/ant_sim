@@ -1,3 +1,5 @@
+package antsim;
+
 import java.util.*;
 import cern.colt.matrix.ObjectFactory2D;
 import cern.colt.matrix.ObjectMatrix2D;
@@ -5,6 +7,7 @@ import cern.colt.matrix.DoubleFactory2D;
 import cern.colt.matrix.DoubleMatrix2D;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
+import antsim.*;
 
 public class AntSimulation {
 
@@ -22,7 +25,17 @@ public class AntSimulation {
         parser.accepts("grid").withRequiredArg().ofType(Integer.class).describedAs("The dimensions of the square simulation grid").defaultsTo(100);   
         return parser;
     }
-   
+    
+    // 
+    public AntHill placeHill(ObjectMatrix2D grid){
+        AntHill hill = new AntHill("stuff");
+        Random randgen = new Random();
+        int x = randgen.nextInt(grid.columns() - 1);
+        int y = randgen.nextInt(grid.rows() - 1);
+        System.out.println("x = "+x);
+        System.out.println("y = "+y);
+        return hill;
+    }
     public static void main(String []args) throws Exception {
         AntSimulation antsim = new AntSimulation("test");
         OptionParser parser = antsim.buildCLI();
@@ -40,6 +53,7 @@ public class AntSimulation {
         Integer size = (Integer) options.valueOf("grid");
         ObjectMatrix2D grid = ObjectFactory2D.dense.make(size,size);
         
-        // Place the ant hill
+        // Place and get the ant hill
+        AntHill hill =  antsim.placeHill(grid);
     }   
 }

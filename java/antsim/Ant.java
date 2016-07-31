@@ -1,3 +1,5 @@
+package antsim; 
+
 import java.util.*;
 
 public class Ant {
